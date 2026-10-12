@@ -1,0 +1,49 @@
+name: HealthCheck
+options:
+  bundleIdPrefix: com.wbatty
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+packages:
+  HealthCheckCore:
+    path: Packages/HealthCheckCore
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  HealthCheck:
+    type: application
+    platform: iOS
+    sources:
+      - path: HealthCheck
+    dependencies:
+      - package: HealthCheckCore
+      - sdk: HealthKit.framework
+    entitlements:
+      path: HealthCheck/HealthCheck.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
+    info:
+      path: HealthCheck/Info.plist
+      properties:
+        CFBundleDisplayName: Health Check
+        UILaunchScreen: {}
+        UIUserInterfaceStyle: Dark
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSHealthShareUsageDescription: >-
+          Health Check reads your weight, steps, calories eaten, basal energy, workouts
+          and lean body mass to build your weekly check-in. Nothing is written back or leaves your phone.
+        NSHealthUpdateUsageDescription: Health Check never writes to Apple Health.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wbatty.healthcheck
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
